@@ -1,6 +1,6 @@
 import random
 
-# 교재 방법 1
+# 교재 선택 정렬 방법 1
 def selectionSort(lst : list):
     n = len(lst)
     # max_index = lst.index(max(lst))
@@ -11,7 +11,7 @@ def selectionSort(lst : list):
         lst[max_index], lst[i] = lst[i], lst[max_index]
     print(lst)
     
-#교재 방법 2
+#교재 선택 정렬 방법 2
 def selectionSort2(lst: list):
     n = len(lst)
     for i in range(n-1 , 0 , -1):
@@ -28,8 +28,14 @@ def theLargest(lst : list, last : int):
             max_index = i
     return max_index
 
-
-
+# 교재 버블 정렬 방법
+def bubbleSort(lst : list):
+    n = len(lst)
+    for i in range(n-1, 0 , -1): # 리스트 맨 마지막부터 맨 앞까지 반복
+       for j in range(i-1): # 맨 뒤와 그 전부터 서로 비교하면서 서로 교체
+           if(lst[j] > lst[j+1]):
+               lst[j], lst[j+1] = lst[j+1], lst[j]
+    print(lst)
 
 # if __name__ == "__main__": 파이썬에서 스크립트가 직접 실행될 때에만 특정코드가 실행되도록 하는 문법
 # 다른 스크립트에서 이 스크립트를 import할 경우 실행되지 않고 직접 스크립트를 실행할 때에만 스크립트가 작동되게 해줌
@@ -46,6 +52,8 @@ if __name__ == "__main__":
 
     print(f"{lst}") #f는 포맷 문자열(f-string)을 의미하며 문자열 안에 변수를 직접 넣어서 출력할 수 있게 해줌
 
-    selectionSort(lst)
+    #selectionSort(lst)
     
-    selectionSort2(lst)
+    #selectionSort2(lst)
+
+    bubbleSort(lst)
