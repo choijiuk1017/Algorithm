@@ -205,14 +205,38 @@ def partition2(lst : list, p : int, r : int):
     lst[i], lst[index] = lst[index], lst[i]
     return i
 
+def quickSort3(lst :list, p : int, r : int):
+    if(p  < r):
+        less, greater = partition3(lst, p, r)
+        quickSort(lst, p, less-1)
+        quickSort(lst, greater +1, r)
+    
+def partition3(lst : list, p : int, r : int):
+    pivot = lst[r]
 
+    less = p
+    i = p
+    greater = r
+
+    while i <= greater:
+        if lst[i] < pivot:
+            lst[less], lst[i] = lst[i] , lst[less]
+            less += 1
+            i += 1
+        elif lst[i] > pivot:
+            lst[i], lst[greater] = lst[greater], lst[i]
+            greater -= 1
+        else:
+            i +=1
+
+    return less, greater
 
 if __name__ == "__main__":
     # random.seed(100)
 
     A = [random.randint(0, 100) for _ in range(10)]
 
-    B = [random.randint(0, 100) for _ in range(10)]
+    B = [5,5,5,5,5,5,5,5,5,5]
 
 
     print(f"{A}")
@@ -221,7 +245,7 @@ if __name__ == "__main__":
     # insertionSort3(A)
     quickSort(A, 0, len(A) - 1)
 
-    quickSort2(B, 0, len(B) - 1)
+    quickSort3(B, 0, len(B) - 1)
 
 
     print(f"{A}")
