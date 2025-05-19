@@ -1,6 +1,4 @@
 import random
-import heapq
-
 
 V = [ i+1 for i in range(8) ]
 
@@ -82,6 +80,55 @@ def Kruskal(E : dict):
     print(f"방문한 정점 순서 : {visited}")
     print(f"연결할 간선 : {edgeList}")
 
+# 인터넷 검색 및 지피티를 참고한 크루스칼 알고리즘
+
+# 특정 노드 x의 부모를 찾는 함수
+def Find(parent, x):
+    if parent[x] != x:
+        # 최상위 부모를 찾을 때까지 재귀
+        parent[x] = Find(parent, parent[x])
+    return parent[x]
+
+# 두 집합을 합치는 함수, x y가 서로 다른 집합일 때만 병합함
+def Union(parent, x, y):
+    x_root = Find(parent, x)
+    y_root = Find(parent, y)
+
+    if x_root == y_root:
+        return False
+    
+    parent[y_root] = x_root
+    return True
+
+# 크루스칼 알고리즘 함수
+def Kruskal2(V : list, E : dict):
+    # 간선 딕셔너리, 리스트 [(u, v , 가중치)] 형태로 변환
+    edge_list = [(u, v, w) for (u, v), w in E.items()]
+
+     # 가중치 기준으로 간선 정렬
+    edge_list.sort(key=lambda x: x[2])
+
+    # Union, Find 함수를 사용하기 위한 초기화
+    parent = {v: v for v in V}
+
+    # 최소 신장 트리에 포함될 간선들
+    mst = []
+
+    # 최소 신장 트리의 총 가중치
+    total_cost  = 0
+
+    # 간선을 하나씩 확인하며 MST 구성
+    for u, v, w in edge_list:
+        if Union(parent, u, v):  # 두 정점이 서로 다른 집합일 경우
+            mst.append((u, v, w)) # 해당 간선 MST에 추가
+            total_cost += w # 비용 누적
+        # MST의 간선 수가 정점-1 이면 종료
+        if len(mst) == len(V) - 1:
+            break
+
+    print(f"선택된 간선들 (MST): {mst}")
+
+    print("총 비용:", total_cost)
 
 if __name__ == "__main__":
     print(V)
@@ -89,4 +136,5 @@ if __name__ == "__main__":
     print(AdjA)
 
     Kruskal(E)
+    Kruskal2(V, E)
     
