@@ -3,7 +3,6 @@ import heapq
 
 V = ["물 붇기", "점화", "수프 넣기", "라면 넣기", "봉지 뜯기", "계란 풀기"]
 
-# E = [ (1, 2), (1, 3), (1, 4), (2, 3), (2, 8), (3, 4), (3, 5), (4, 6), (4, 7), (6, 7), (6, 8), (7, 8), (8 , 3), (8, 2)]
 E = [("물 붇기", "점화"),
     ("점화", "수프 넣기"),
     ("점화", "라면 넣기"),
@@ -35,8 +34,9 @@ def TopologicalSort(V : list, AdjA : dict):
     for last in AdjA.values():
         if last == []:
             lastVertex = V[i]
-            i = 0
         i += 1
+
+    i = 0
 
     # 진입 차수가 0인 정점들 우선으로 정렬
     while(any(AdjA.values())):
@@ -67,11 +67,8 @@ def TopologicalSort(V : list, AdjA : dict):
             i += 1
     # 맨 끝 정점, 즉 진입 차수가 가장 큰 정점 추가
     indegreeList.append(lastVertex)
-    print(indegreeList)
+    print(f"위상 정렬 결과 : {indegreeList}")
 
 if __name__ == "__main__":
-    print(V)
-    print(E)
-    print(AdjA)
-
+    print(f"인접 배열 : {AdjA}")
     TopologicalSort(V, AdjA)
